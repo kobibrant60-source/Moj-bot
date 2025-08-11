@@ -34,5 +34,7 @@ def monitoruj():
             ostatni_hash = nowy_hash
 
 if __name__ == "__main__":
-    monitoruj()
+    # ✅ TEST – od razu wyślij powiadomienie po starcie
+    wyslij_powiadomienie("✅ Bot został uruchomiony i działa na Render.com")
 
+    monitoruj()
