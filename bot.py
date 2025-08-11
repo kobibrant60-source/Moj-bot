@@ -7,7 +7,7 @@ from bs4 import BeautifulSoup
 URL = "https://www.ttbs.pl/3,aktualnosci"
 
 # TWÓJ WEBHOOK Z DISCORDA
-WEBHOOK_URL = "https://canary.discord.com/api/webhooks/1404527943937691698/Fj6E5Wc0VJSQ92NOw7BKgcVaL_uhfhZYBBy7n4NR_dpzO9WTh8DiBWglzsW6TZW917wT"  # <- Wklej tu swój link
+WEBHOOK_URL = "https://canary.discord.com/api/webhooks/1404527943937691698/Fj6E5Wc0VJSQ92NOw7BKgcVaL_uhfhZYBBy7n4NR_dpzO9WTh8DiBWglzsW6TZW917wT"  
 
 # Co ile sekund sprawdzać stronę
 INTERWAL = 60
@@ -25,16 +25,17 @@ def wyslij_powiadomienie(tresc):
 
 def monitoruj():
     ostatni_hash = pobierz_hash_strony()
-    print("Bot uruchomiony. Oczekiwanie na zmiany...")
+    print(f"Bot uruchomiony. Startowy hash: {ostatni_hash}")
     while True:
         time.sleep(INTERWAL)
         nowy_hash = pobierz_hash_strony()
+        print(f"⏱ Sprawdzam stronę TTBS... Hash: {nowy_hash}")
         if nowy_hash != ostatni_hash:
+            print("🔄 Wykryto zmianę na stronie!")
             wyslij_powiadomienie(f"📢 Nowy wpis lub zmiana na stronie TTBS!\n🔗 {URL}")
             ostatni_hash = nowy_hash
 
 if __name__ == "__main__":
-    # ✅ TEST – od razu wyślij powiadomienie po starcie
+    # Test powiadomienia przy starcie
     wyslij_powiadomienie("✅ Bot został uruchomiony i działa na Render.com")
-
     monitoruj()
